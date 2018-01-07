@@ -89,19 +89,24 @@ using namespace std;
 ///  \param X     The state to consider 
 double logLikelihoodIMU(const cv_state & X)
 {
+  arma::mat temp = y_imu.measurementIMU-y_imu.sensorH*X.stateSpace;
+  arma::mat temp2 = arma::trans(temp);
+  arma::mat Rinv = arma::inv(y_imu.CovarianceMatrixR);
   
-  return 1;
+  arma::mat weight = -0.5*temp2*Rinv;
+  
+  return (double) arma::cumprod(weight)(0);
 }
 
 double logLikelihoodGPS(const cv_state & X)
 {
   arma::mat temp = y_gps.measurementGPS-y_gps.sensorH*X.stateSpace;
   arma::mat temp2 = arma::trans(temp);
-  arma::mat Rinv = inv(y_gps.CovarianceMatrixR);
+  arma::mat Rinv = arma::inv(y_gps.CovarianceMatrixR);
   
   arma::mat weight = -0.5*temp2*Rinv;
   
-  return 1;
+  return (double) arma::cumprod(weight)(0);
 }
 
 
