@@ -15,6 +15,7 @@ class GPS_obs
 {
 public:
   bool newData= FALSE;
+  double deltaT;
   GPS_obs();
   arma::vec measurementGPS(6); //measure xyz pos and xyz speed
   arma::mat CovarianceMatrixR(6, 6);
@@ -27,6 +28,7 @@ class IMU_obs
 {
 public:
    bool newData = FALSE;
+   double deltaT;
    IMU_obs();
    IMU_obs(double accError, double gyroError, double poseError);
    arma::vec measurementIMU(9); //measure xyz acc, xyz angular speed, xyz pose
