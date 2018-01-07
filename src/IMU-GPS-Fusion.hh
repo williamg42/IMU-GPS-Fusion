@@ -18,6 +18,7 @@ public:
   GPS_obs();
   arma::vec measurementGPS(6); //measure xyz pos and xyz speed
   arma::mat CovarianceMatrixR(6, 6);
+  arma::mat sensorH(3, 15);
   void SetMeasurement (arma::vec Pos, arma::vec Velocity, double Xerror, double Yerror, double Zerror, double Verror, double Cerror);
 
 };
@@ -30,6 +31,7 @@ public:
    IMU_obs(double accError, double gyroError, double poseError);
    arma::vec measurementIMU(9); //measure xyz acc, xyz angular speed, xyz pose
    arma::mat CovarianceMatrixR(9, 9);
+   arma::mat sensorH(3, 15);
    void SetMeasurement (arma::vec Theta,  arma::vec Omega, arma::vec Acc);
   
 };
