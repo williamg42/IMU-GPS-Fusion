@@ -36,7 +36,10 @@ public:
   
 };
 
-double logLikelihood(long lTime, const cv_state & X);
+double logLikelihoodIMU(const cv_state & X);
+
+double logLikelihoodGPS(const cv_state & X);
+
 
 smc::particle<cv_state> fInitialise(smc::rng *pRng);
 
