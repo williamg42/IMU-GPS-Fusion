@@ -30,7 +30,7 @@ public:
    IMU_obs(double accError, double gyroError, double poseError);
    arma::vec measurementIMU(9); //measure xyz acc, xyz angular speed, xyz pose
    arma::mat CovarianceMatrixR(9, 9);
-   void SetMeasurement (arma::vec Acc, arma::vec Omega, arma::vec Theta);
+   void SetMeasurement (arma::vec Theta,  arma::vec Omega, arma::vec Acc);
   
 };
 
