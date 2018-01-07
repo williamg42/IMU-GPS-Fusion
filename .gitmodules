@@ -1,0 +1,6 @@
+[submodule "Coordinate-Transforms"]
+	path = Coordinate-Transforms
+	url = https://github.com/williamg42/Coordinate-Transforms.git
+[submodule "BNO055-Linux-Library"]
+	path = BNO055-Linux-Library
+	url = https://github.com/williamg42/BNO055-Linux-Library.git
