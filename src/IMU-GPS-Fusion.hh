@@ -3,6 +3,8 @@
 #include "../Coordinate-Transforms/src/CoordinateTransform.h"
 #include "../BNO055-Linux-Library/src/BNO055.h"
 
+#define N 2500
+
 class cv_state
 {
 public:
