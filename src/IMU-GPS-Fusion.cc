@@ -168,3 +168,10 @@ void IMUKernel(long lTime, smc::particle<cv_state> & pFrom, smc::rng *pRng) {//m
   
   pFrom.MultiplyLogWeightBy(logLikelihoodIMU(*k));
 }
+
+
+long fSelect(long lTime, const smc::particle<cv_state> & p, smc::rng *pRng) {
+  
+  if  (y_gps.newData == TRUE) return 1;
+  else  return 0;
+}
