@@ -115,14 +115,25 @@ double logLikelihoodGPS(const cv_state & X)
 /// \param pRng A pointer to the random number generator which is to be used
 smc::particle<cv_state> fInitialise(smc::rng *pRng)
 {
-  cv_state value;
+  cv_state k;
   
-  value(0) = pRng->Normal(0,sqrt(var_s0));
-  value(0) = pRng->Normal(0,sqrt(var_s0));
-  value(0) = pRng->Normal(0,sqrt(var_u0));
-  value(0) = pRng->Normal(0,sqrt(var_u0));
+  k.stateSpace(0) = pRng->Normal(0,sqrt(var_s0)); //x pose
+  k.stateSpace(1) = pRng->Normal(0,sqrt(var_s0));//y pose
+  k.stateSpace(2) = pRng->Normal(0,sqrt(var_s0));//z pose
+  k.stateSpace(3) = pRng->Normal(0,sqrt(var_s0)); //x angular velocity
+  k.stateSpace(4) = pRng->Normal(0,sqrt(var_s0)); //y angular velocity
+  k.stateSpace(5) = pRng->Normal(0,sqrt(var_s0)); //z angular velocity
+  k.stateSpace(6) = pRng->Normal(0,sqrt(var_s0)); //x position
+  k.stateSpace(7) = pRng->Normal(0,sqrt(var_s0)); //y position
+  k.stateSpace(8) = pRng->Normal(0,sqrt(var_s0)); //z position
+  k.stateSpace(9) = pRng->Normal(0,sqrt(var_s0)); //x velocity
+  k.stateSpace(10) = pRng->Normal(0,sqrt(var_s0)); //x velocity
+  k.stateSpace(11) = pRng->Normal(0,sqrt(var_s0)); //x velocity
+  k.stateSpace(12) = pRng->Normal(0,sqrt(var_s0)); //x accerleration
+  k.stateSpace(13) = pRng->Normal(0,sqrt(var_s0)); //y accerleration
+  k.stateSpace(14) = pRng->Normal(0,sqrt(var_s0)); //z accerleration
 
-  return smc::particle<cv_state>(value,logLikelihood(0,value));
+  return smc::particle<cv_state>(k, exp(1/N)));
 }
 
 void GPSKernel(long lTime, smc::particle<cv_state> & pFrom, smc::rng *pRng) {//movements for GPS measurements
@@ -140,9 +151,9 @@ void GPSKernel(long lTime, smc::particle<cv_state> & pFrom, smc::rng *pRng) {//m
   k.stateSpace(9) = k.stateSpace(9)+y_gps.deltaT*k.stateSpace(12)+pRng->Normal(0,sqrt(var_s0)); //x velocity
   k.stateSpace(10) = k.stateSpace(10)+y_gps.deltaT*k.stateSpace(13)+pRng->Normal(0,sqrt(var_s0)); //x velocity
   k.stateSpace(11) = k.stateSpace(11)+y_gps.deltaT*k.stateSpace(14)+pRng->Normal(0,sqrt(var_s0)); //x velocity
-  k.stateSpace(12) = k.stateSpace(12)+pRng->Normal(0,sqrt(var_s0)); //x angular velocity
-  k.stateSpace(13) = k.stateSpace(13)+pRng->Normal(0,sqrt(var_s0)); //y angular velocity
-  k.stateSpace(14) = k.stateSpace(14)+pRng->Normal(0,sqrt(var_s0)); //z angular velocity
+  k.stateSpace(12) = k.stateSpace(12)+pRng->Normal(0,sqrt(var_s0)); //x accerleration
+  k.stateSpace(13) = k.stateSpace(13)+pRng->Normal(0,sqrt(var_s0)); //y accerleration
+  k.stateSpace(14) = k.stateSpace(14)+pRng->Normal(0,sqrt(var_s0)); //z accerleration
   
   pFrom.MultiplyLogWeightBy(logLikelihoodGPS(*k));
   
